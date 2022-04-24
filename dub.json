@@ -6,5 +6,15 @@
 	"description": "Personal D helper",
 	"license": "GNU GPU v3.0",
 	"name": "dhelp",
-    "targetPath": "./bin/"
+    "targetPath": "./bin/",
+    "configurations": [
+        {
+            "name": "cli",
+            "default": "false",
+            "targetType": "executable",
+            "platforms": ["windows", "linux"],
+            "versions": ["CLI"],
+            "buildOptions": ["releaseMode", "optimize", "inline"]
+        }
+    ]
 }
