@@ -1,0 +1,10 @@
+{
+	"authors": [
+		"Alisa Lain"
+	],
+	"copyright": "Copyright (c) 2022, Alisa Lain",
+	"description": "Personal D helper",
+	"license": "GNU GPU v3.0",
+	"name": "dhelp",
+    "targetPath": "./bin/"
+}
