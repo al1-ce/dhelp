@@ -7,7 +7,7 @@
 	"license": "GNU GPU v3.0",
 	"name": "dhelp",
     "targetPath": "./bin/",
-    "configurations": [
+    "configurations-bak": [
         {
             "name": "cli",
             "default": "false",

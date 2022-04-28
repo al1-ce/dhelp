@@ -13,6 +13,7 @@ Please init project (dub init) or supply valid path.`;
 
 string strHelp = `Usage: dhelp [args] project-path
     -h, --help              displays this message
+    -v, --vscode            init .vscode launch and tasks
 `;
 
 string launchJSON = `
@@ -97,9 +98,6 @@ int main(string[] args) {
     }
 
     string dubPath = projPath ~ sep ~ "dub.json";
-    string vsPath = projPath ~ sep ~ ".vscode";
-    string launchPath = vsPath ~ sep ~ "launch.json";
-    string tasksPath = vsPath ~ sep ~ "tasks.json";
 
     string appName = "undefined";
 
@@ -117,19 +115,26 @@ int main(string[] args) {
         return 1;
     }
 
-    version(Posix) {
-        launchJSON = launchJSON.replace("{APPNAME}", appName);
-    }
-    version(Windows) {
-        launchJSON = launchJSON.replace("{APPNAME}", appName ~ ".exe");
+    if (args.canFind("-v") || args.canFind("--vscode")) {
+        string vsPath = projPath ~ sep ~ ".vscode";
+        string launchPath = vsPath ~ sep ~ "launch.json";
+        string tasksPath = vsPath ~ sep ~ "tasks.json";
+        
+        version(Posix) {
+            launchJSON = launchJSON.replace("{APPNAME}", appName);
+        }
+        version(Windows) {
+            launchJSON = launchJSON.replace("{APPNAME}", appName ~ ".exe");
+        }
+
+        if (!vsPath.exists) {
+            vsPath.mkdir();
+        }
+
+        writeFile(launchPath, launchJSON);
+        writeFile(tasksPath, tasksJSON);
     }
 
-    if (!vsPath.exists) {
-        vsPath.mkdir;
-    }
-
-    writeFile(launchPath, launchJSON);
-    writeFile(tasksPath, tasksJSON);
 
     return 0;
 }
